@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Book>
+<div class="text-center">
+        <button class="btn btn-dark" type="button" onclick="location.href = '@Url.Action("Index", "Home")'">
+           All
+        </button>
+
+        <button class="btn btn-outline-secondary" type="button" onclick="location.href = '@Url.Action("BooksToRent", "Home")'">
+           To rent
+        </button>
+        <button class="btn btn-outline-secondary" type="button" onclick="location.href = '@Url.Action("BooksOnLoan", "Home")'">
+            On loan
+</button>
+    </div>
+<br />
+<div class="row pb-3 backgroundWhite">
+
+    @foreach (var book in Model)
+    {
+        <div class="col-lg-3 col-md-6">
+            <div class="row p-2">
+                <div class="col-12  p-1 rounded shadow-sm" style="border: 1px solid #222;">
+                    <div class="card-img-top img-fluid d-block mx-auto mb-3" style="border:0px;">
+                        <img src="@book.ImageUrl" class="card-img-top rounded" />
+                        <div class="pl-1">
+                            <p class="card-title h5"><b style="color:#2c3e50">@book.Title</b></p>
+                            <p class="card-title text-primary">by <b>@book.Author</b></p>
+                        </div>
+                    </div>
+                    <div>
+                        <a asp-action="Details" class="btn btn-dark form-control" asp-route-id="@book.Id">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

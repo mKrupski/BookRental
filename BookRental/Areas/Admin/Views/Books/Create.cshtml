@@ -1,0 +1,85 @@
+﻿@model BookRental.App.ViewModels.BookVm
+@{
+
+    var title = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    if (Model.Book.Id != 0)
+    {
+        title = "Edit";
+    }
+}
+
+<h1>@title</h1>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @{
+                if (Model.Book.Id != 0)
+                {
+                    <input type="hidden" asp-for="Book.Id" />
+
+                }
+            }
+            <div class="form-group">
+                <label asp-for="Book.Title" class="control-label"></label>
+                <input asp-for="Book.Title" class="form-control" />
+                <span asp-validation-for="Book.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Author" class="control-label"></label>
+                <input asp-for="Book.Author" class="form-control" />
+                <span asp-validation-for="Book.Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Publisher" class="control-label"></label>
+                <input asp-for="Book.Publisher" class="form-control" />
+                <span asp-validation-for="Book.Publisher" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Category" class="control-label"></label>
+                <select asp-for="Book.CategoryId" class="form-control" asp-items="Model.CategoryList"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Status" class="control-label"></label>
+                <select asp-for="Book.Status" class="form-control" asp-items="Html.GetEnumSelectList<BookStatus>()"></select>
+                <span asp-validation-for="Book.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Description" class="control-label"></label>
+                <input asp-for="Book.Description" class="form-control" />
+                <span asp-validation-for="Book.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.ImageUrl" class="control-label"></label>
+                <input type="file" name="files" id="uploadBox" multiple class="form-control" />
+                <span asp-validation-for="Book.ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @if (Model.Book.Id != 0)
+                {
+                    <input type="submit" onclick="return validateInput()" value="Update" class="btn btn-primary" />
+                }
+                else
+                {
+                    <input type="submit" onclick="return validateInput()" value="Create" class="btn btn-primary"/>
+                }
+            </div>
+
+        </form>
+    </div>
+    @if (Model.Book.Id != 0)
+    {
+        <div class="col-3 offset-1 pt-4">
+            <img src="@Model.Book.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+        </div>
+    }
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

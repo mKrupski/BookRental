@@ -1,0 +1,65 @@
+﻿@model BookRental.App.ViewModels.UsersBooksVm
+
+<form method="get">
+    <br />
+    @if (Model.BorrowedBookList.Any())
+    {
+
+        <div class="backgroundWhiteBorder">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header bg-dark text-light ml-0 row container">
+                        <div class="col-6">
+                            <i class="fa fa-book"></i> &nbsp;
+                            Users books
+                        </div>
+                    </div>
+
+                    <table id="categoryTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Book Title
+                                </th>
+                                <th>
+                                    Book Author
+                                </th>
+                                <th>
+                                    User Email
+                                </th>
+                                <th>
+                                    Return Book
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model.BorrowedBookList)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Book.Title
+                                </td>
+                                <td>
+                                    @item.Book.Author
+                                </td>
+                                <td>
+                                    @item.ApplicationUser.Email
+                                </td>
+                                <td>
+                                    <a asp-action="ReturnBook" asp-route-bookCartId="@item.Id" class="btn btn-danger">
+                                        <i class="fa fa-share-square"> Return</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div> }
+    else
+    {
+        <div>No one borrowing books.</div>}
+</form>

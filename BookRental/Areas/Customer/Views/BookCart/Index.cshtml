@@ -1,0 +1,46 @@
+﻿@model BookRental.App.ViewModels.BookCartVm
+
+<form method="get">
+    <br />
+    @if (Model.BorrowedBookList.Any())
+    {
+
+<div class="backgroundWhiteBorder">
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-dark text-light ml-0 row container">
+                <div class="col-6">
+                    <i class="fa fa-book"></i> &nbsp;
+                    My books
+                </div>
+            </div>
+
+            <div class="card-body">
+                @foreach (var item in Model.BorrowedBookList)
+                {
+<div class="row">
+    <div class="d-none d-lg-block col-lg-1 text-center py-2">
+        <img src="@item.Book.ImageUrl" class="rounded" width="100%" />
+    </div>
+    <div class="col-12 text-sm-center col-lg-8 text-lg-left">
+        <h5><strong>@item.Book.Title</strong></h5>
+        <p><small>@item.Book.Description</small></p>
+    </div>
+    <div class="col-12 text-sm-center col-lg-3 text-lg-right row">
+        <div class="col-2 col-sm-4 col-lg-2 text-right">
+            <a asp-action="ReturnBook" asp-route-bookCartId="@item.Id" class="btn btn-danger">
+                <i class="fa fa-share-square"> Return</i>
+            </a>
+        </div>
+    </div>
+</div>
+                    <hr />
+                }
+            </div>
+        </div>
+    </div>
+</div> }
+else
+{
+<div>You haven't borrow any books.</div>}
+</form>
